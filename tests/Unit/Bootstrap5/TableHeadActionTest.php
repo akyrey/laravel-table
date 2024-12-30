@@ -82,6 +82,6 @@ class TableHeadActionTest extends TestCase
                 '</a>',
             ])
             ->call('headAction')
-            ->assertNotEmitted('laraveltable:link:open:newtab');
+            ->assertNotDispatched('laraveltable:link:open:newtab');
     }
 }

@@ -73,7 +73,7 @@ class Table
     }
 
     /** @throws \Okipa\LaravelTable\Exceptions\InvalidColumnSortDirection */
-    public function reorderable(string $attribute, string $title = null, string $sortDirByDefault = 'asc'): self
+    public function reorderable(string $attribute, string|null $title = null, string $sortDirByDefault = 'asc'): self
     {
         $orderColumn = Column::make($attribute)->sortable()->sortByDefault($sortDirByDefault);
         if ($title) {
@@ -230,7 +230,7 @@ class Table
         foreach ($this->eventsToEmitOnLoad as $event => $params) {
             $eventName = is_string($event) ? $event : $params;
             $eventParams = is_array($params) ? $params : [];
-            $table->emit($eventName, $eventParams);
+            $table->dispatch($eventName, $eventParams);
         }
     }
 

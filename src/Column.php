@@ -36,7 +36,7 @@ class Column
         $this->title = __('validation.attributes.' . $this->attribute);
     }
 
-    public static function make(string $attribute = null): self
+    public static function make(string|null $attribute = null): self
     {
         return new self($attribute);
     }
@@ -53,7 +53,7 @@ class Column
         return $this->title;
     }
 
-    public function sortable(Closure $sortableClosure = null): self
+    public function sortable(Closure|null $sortableClosure = null): self
     {
         $this->sortable = true;
         $this->sortableClosure = $sortableClosure;
@@ -102,7 +102,7 @@ class Column
         return $this->sortDirByDefault;
     }
 
-    public function searchable(Closure $searchableClosure = null): self
+    public function searchable(Closure|null $searchableClosure = null): self
     {
         $this->searchable = true;
         $this->searchableClosure = $searchableClosure;

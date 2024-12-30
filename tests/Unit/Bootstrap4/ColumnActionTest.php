@@ -102,13 +102,13 @@ class ColumnActionTest extends \Tests\Unit\Bootstrap5\ColumnActionTest
                 '</tbody>',
             ])
             ->call('columnAction', 'active', $users->first()->id, false)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Toggle Off has been executed on the field validation.attributes.active '
                 . 'from the line #' . $users->first()->id . '.',
             )
             ->call('columnAction', 'email_verified_at', $users->last()->id, true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'columnAction',
                 'email_verified_at',
@@ -116,8 +116,8 @@ class ColumnActionTest extends \Tests\Unit\Bootstrap5\ColumnActionTest
                 'Are you sure you want to execute the action Verify Email on the field validation.attributes.email_verified_at from the line #'
                 . $users->last()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'columnAction', 'email_verified_at', $users->last()->id)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'columnAction', 'email_verified_at', $users->last()->id)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Verify Email has been executed on the field '
                 . 'validation.attributes.email_verified_at from the line #' . $users->last()->id . '.'
@@ -166,8 +166,8 @@ class ColumnActionTest extends \Tests\Unit\Bootstrap5\ColumnActionTest
                 '</tbody>',
             ])
             ->call('columnAction', 'email_verified_at', $user->id, false)
-            ->assertNotEmitted('laraveltable:action:confirm')
-            ->assertNotEmitted('laraveltable:action:feedback');
+            ->assertNotDispatched('laraveltable:action:confirm')
+            ->assertNotDispatched('laraveltable:action:feedback');
         $this->assertNull($user->fresh()->email_verified_at);
     }
 }

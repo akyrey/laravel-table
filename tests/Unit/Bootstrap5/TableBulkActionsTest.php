@@ -164,15 +164,15 @@ class TableBulkActionsTest extends TestCase
             ]);
         // Verify Email
         $component->call('bulkAction', 'bulk_action_verify_email', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_verify_email',
                 null,
                 'Are you sure you want to execute the action Verify Email on the line #' . $users->first()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_verify_email', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_verify_email', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Verify Email has been executed on the line #' . $users->first()->id . '.'
             );
@@ -187,7 +187,7 @@ class TableBulkActionsTest extends TestCase
         // Unverify Email
         User::query()->update(['email_verified_at' => Date::now()]);
         $component->call('bulkAction', 'bulk_action_cancel_email_verification', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_cancel_email_verification',
@@ -195,8 +195,8 @@ class TableBulkActionsTest extends TestCase
                 'Are you sure you want to execute the action Unverify Email on the line #'
                 . $users->first()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_cancel_email_verification', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_cancel_email_verification', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Unverify Email has been executed on the line #' . $users->first()->id . '.'
             );
@@ -210,15 +210,15 @@ class TableBulkActionsTest extends TestCase
         ]);
         // Activate
         $component->call('bulkAction', 'bulk_action_activate', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_activate',
                 null,
                 'Are you sure you want to execute the action Activate on the line #' . $users->first()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_activate', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_activate', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Activate has been executed on the line #' . $users->first()->id . '.'
             );
@@ -233,15 +233,15 @@ class TableBulkActionsTest extends TestCase
         // Deactivate
         User::query()->update(['active' => true]);
         $component->call('bulkAction', 'bulk_action_deactivate', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_deactivate',
                 null,
                 'Are you sure you want to execute the action Deactivate on the line #' . $users->first()->id . '?',
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_deactivate', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_deactivate', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Deactivate has been executed on the line #' . $users->first()->id . '.'
             );
@@ -255,15 +255,15 @@ class TableBulkActionsTest extends TestCase
         ]);
         // Destroy
         $component->call('bulkAction', 'bulk_action_destroy', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_destroy',
                 null,
                 'Are you sure you want to execute the action Destroy on the line #' . $users->first()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Destroy has been executed on the line #' . $users->first()->id . '.'
             );
@@ -347,7 +347,7 @@ class TableBulkActionsTest extends TestCase
                 '</tbody>',
             ])
             ->call('bulkAction', 'bulk_action_destroy', true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'bulkAction',
                 'bulk_action_destroy',
@@ -355,8 +355,8 @@ class TableBulkActionsTest extends TestCase
                 'Are you sure you want to execute the action Destroy on the 2 selected lines? The line #' . $user1->id
                 . ' does not allow the action Destroy and will not be affected.'
             )
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Destroy has been executed on the 2 selected lines. The line #' . $user1->id
                 . ' does not allow the action Destroy and was not affected.',
@@ -399,8 +399,8 @@ class TableBulkActionsTest extends TestCase
                 '</thead>',
             ])
             ->call('bulkAction', 'bulk_action_destroy', false)
-            ->assertNotEmitted('laraveltable:action:confirm')
-            ->assertNotEmitted('laraveltable:action:feedback');
+            ->assertNotDispatched('laraveltable:action:confirm')
+            ->assertNotDispatched('laraveltable:action:feedback');
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 
@@ -434,9 +434,9 @@ class TableBulkActionsTest extends TestCase
                 '</thead>',
             ])
             ->call('bulkAction', 'bulk_action_destroy', true)
-            ->assertNotEmitted('laraveltable:action:confirm')
-            ->emit('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
-            ->assertNotEmitted('laraveltable:action:feedback');
+            ->assertNotDispatched('laraveltable:action:confirm')
+            ->dispatch('laraveltable:action:confirmed', 'bulkAction', 'bulk_action_destroy', null)
+            ->assertNotDispatched('laraveltable:action:feedback');
         $this->assertDatabaseHas(app(User::class)->getTable(), ['id' => $users->first()->id]);
         $this->assertDatabaseHas(app(User::class)->getTable(), ['id' => $users->last()->id]);
     }

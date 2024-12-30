@@ -327,12 +327,12 @@ class TableFiltersTest extends TestCase
             ->call('resetFilters')
             ->assertSet('selectedFilters', [])
             ->assertSet('resetFilters', true)
-            ->assertEmitted('laraveltable:filters:wire:ignore:cancel')
+            ->assertDispatched('laraveltable:filters:wire:ignore:cancel')
             ->assertDontSeeHtml([
                 '<div wire:ignore>',
                 '<a wire:click.prevent="resetFilters()"',
             ])
-            ->emit('laraveltable:filters:wire:ignore:cancel')
+            ->dispatch('laraveltable:filters:wire:ignore:cancel')
             ->assertSet('resetFilters', false)
             ->assertSeeHtmlInOrder([
                 '<div wire:ignore>',

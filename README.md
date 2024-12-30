@@ -48,6 +48,7 @@ Found this package helpful? Please consider supporting my work!
 
 | Laravel version                                      | Livewire version | PHP version                  | Package version |
 |------------------------------------------------------|------------------|------------------------------|-----------------|
+| ^11.0                                                | ^3.0             | 8.1.* &#124; 8.2.* &#124; 8.3.*           | ^6.0            |
 | ^9.0 &#124; ^10.0                                    | ^2.0             | 8.1.* &#124; 8.2.*           | ^5.3            |
 | ^8.0 &#124; ^9.0                                     | ^2.0             | ^8.1                         | ^5.0            |
 | ^7.0 &#124; ^8.0                                     | X                | ^7.4 &#124; ^8.0             | ^4.0            |
@@ -58,6 +59,7 @@ Found this package helpful? Please consider supporting my work!
 
 ## Upgrade guide
 
+* [From V5 to V6](/docs/upgrade-guides/from-v5-to-v6.md)
 * [From V4 to V5](/docs/upgrade-guides/from-v4-to-v5.md)
 * [From V3 to V4](/docs/upgrade-guides/from-v3-to-v4.md)
 * [From V2 to V3](/docs/upgrade-guides/from-v2-to-v3.md)

@@ -181,7 +181,7 @@ class TableReorderableTest extends TestCase
         Livewire::test(\Okipa\LaravelTable\Livewire\Table::class, ['config' => $config::class])
             ->call('init')
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Categories have been reordered
         $reorderedCategories = UserCategory::orderBy('position')->get();
         $this->assertEquals([
@@ -241,7 +241,7 @@ class TableReorderableTest extends TestCase
             ->call('sortBy', 'position')
             ->assertSet('sortDir', 'desc')
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Categories have been reordered
         $reorderedCategories = UserCategory::orderBy('position')->get();
         $this->assertEquals([
@@ -311,7 +311,7 @@ class TableReorderableTest extends TestCase
         Livewire::test(\Okipa\LaravelTable\Livewire\Table::class, ['config' => $config::class])
             ->call('init')
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Categories have been reordered
         $reorderedCategories = UserCategory::orderBy('position')->get();
         $this->assertEquals([
@@ -386,7 +386,7 @@ class TableReorderableTest extends TestCase
             ->call('init')
             ->set('searchBy', 'Name test 2')
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Categories have been reordered
         $reorderedCategories = UserCategory::orderBy('position')->get();
         $this->assertEquals([
@@ -479,7 +479,7 @@ class TableReorderableTest extends TestCase
                 'filter_relationship_owner' => $user2->id,
             ])
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Companies have been reordered
         $reorderedCompanies = Company::orderBy('position')->get();
         $this->assertEquals([
@@ -553,7 +553,7 @@ class TableReorderableTest extends TestCase
         Livewire::test(\Okipa\LaravelTable\Livewire\Table::class, ['config' => $config::class])
             ->call('init')
             ->call('reorder', $reorderedList)
-            ->assertEmitted('laraveltable:action:feedback', 'The list has been reordered.');
+            ->assertDispatched('laraveltable:action:feedback', 'The list has been reordered.');
         // Categories have been reordered and positions have been fixed
         $reorderedCategories = UserCategory::orderBy('position')->get();
         $this->assertEquals([

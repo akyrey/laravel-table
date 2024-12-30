@@ -120,21 +120,21 @@ class TableRowActionsTest extends TestCase
                 '</tbody>',
             ])
             ->call('rowAction', 'row_action_show', $users->first()->id, false)
-            ->assertNotEmitted('laraveltable:action:feedback')
+            ->assertNotDispatched('laraveltable:action:feedback')
             ->assertRedirect(route('user.show', $users->first()))
             ->call('rowAction', 'row_action_edit', $users->last()->id, false)
-            ->assertNotEmitted('laraveltable:action:feedback')
+            ->assertNotDispatched('laraveltable:action:feedback')
             ->assertRedirect(route('user.edit', $users->last()))
             ->call('rowAction', 'row_action_destroy', $users->first()->id, true)
-            ->assertEmitted(
+            ->assertDispatched(
                 'laraveltable:action:confirm',
                 'rowAction',
                 'row_action_destroy',
                 (string) $users->first()->id,
                 'Are you sure you want to execute the action Destroy on the line #' . $users->first()->id . '?'
             )
-            ->emit('laraveltable:action:confirmed', 'rowAction', 'row_action_destroy', $users->first()->id)
-            ->assertEmitted(
+            ->dispatch('laraveltable:action:confirmed', 'rowAction', 'row_action_destroy', $users->first()->id)
+            ->assertDispatched(
                 'laraveltable:action:feedback',
                 'The action Destroy has been executed on the line #' . $users->first()->id . '.'
             );
@@ -228,8 +228,8 @@ class TableRowActionsTest extends TestCase
                 '</tbody>',
             ])
             ->call('rowAction', 'row_action_destroy', $user->id, false)
-            ->assertNotEmitted('laraveltable:action:confirm')
-            ->assertNotEmitted('laraveltable:action:feedback');
+            ->assertNotDispatched('laraveltable:action:confirm')
+            ->assertNotDispatched('laraveltable:action:feedback');
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 }

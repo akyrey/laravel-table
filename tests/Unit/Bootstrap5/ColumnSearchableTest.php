@@ -406,7 +406,7 @@ class ColumnSearchableTest extends TestCase
     public function it_can_execute_adapted_search_sql_statement_with_postgres(): void
     {
         $this->expectException(PDOException::class);
-        $this->expectExceptionMessageMatches('/select count\(\*\) as aggregate from "users" where \(LOWER\(CAST\(name AS TEXT\)\) ILIKE %test%\)\)/');
+        $this->expectExceptionMessageMatches('/select count\(\*\) as aggregate from "users" where \(CAST\(name AS TEXT\) ILIKE %test%\)\)/');
         $config = new class() extends AbstractTableConfiguration
         {
             protected function table(): Table
